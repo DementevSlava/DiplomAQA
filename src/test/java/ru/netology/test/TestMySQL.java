@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
+import ru.netology.data.SQLUtils;
 import ru.netology.page.MainPage;
 import ru.netology.page.PaymentByCardPage;
 
@@ -20,13 +21,19 @@ public class TestMySQL {
     // private SelenideElement successNotification = $(withText("Операция одобрена Банком."));
 
     @BeforeEach
-    void sutUp() {
+    void setUp() {
         open("http://localhost:8080");
+        cardInfo = DataHelper.getCardInfo();
+    }
+
+    @AfterEach
+    void setAfter(){
+        SQLUtils.cleanDB();
     }
 
     @Test
     void BuyTourWithValidDataApprovedCard() {
-        cardInfo = DataHelper.getCardInfo();
+
         PaymentByCardPage paymentByCardPage = new PaymentByCardPage();
         mainPage.openCardPayPage();
         paymentByCardPage.enterCardData(cardInfo);
