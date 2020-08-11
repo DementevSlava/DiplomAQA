@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class SQLUtils {
 
-    private static String url = "jdbc:mysql://127.0.0.1:3306/app";
+    private static String url = "jdbc:mysql://192.168.99.100:3306/app";
     private static String user = "app";
     private static String password = "pass";
 

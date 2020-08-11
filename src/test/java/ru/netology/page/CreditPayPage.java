@@ -2,6 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import ru.netology.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.$;
@@ -22,5 +23,21 @@ public class CreditPayPage {
         heading.waitUntil(Condition.exist, 5000);
     }
 
+    public void enterValidDataApprovedCard(DataHelper.CardInfo cardInfo){
+        cardNumberField.setValue(DataHelper.getApprovedCard().getCardNumber());
+        monthField.setValue(cardInfo.getMonth());
+        yearField.setValue(cardInfo.getYear());
+        ownerField.setValue(cardInfo.getOwner());
+        cvcField.setValue(cardInfo.getCvc());
+        button.click();
+    }
 
+    public void enterValidDataDeclinedCard(DataHelper.CardInfo cardInfo){
+        cardNumberField.setValue(DataHelper.getDeclinedCard().getCardNumber());
+        monthField.setValue(cardInfo.getMonth());
+        yearField.setValue(cardInfo.getYear());
+        ownerField.setValue(cardInfo.getOwner());
+        cvcField.setValue(cardInfo.getCvc());
+        button.click();
+    }
 }
