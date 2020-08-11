@@ -1,9 +1,9 @@
-### Дипломный проект профессии «Тестировщик»
+# Дипломный проект профессии «Тестировщик»
 
-##### План автоматизации
+### План автоматизации
 [Plan](https://github.com/DementevSlava/DiplomAQA/blob/master/Docs/Plan.md)
 
-##### Запуск приложения
+### Запуск приложения
 1. Запустить Docker Toolbox
 2. Запустить контейтры mysql, postgres и Node.js командой  
 ```docker-compose up```  
