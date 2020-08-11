@@ -2,6 +2,7 @@ package ru.netology.data;
 
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,4 +38,15 @@ return conn;
             System.out.println(e.getMessage());
         }
     }
+
+    public  static String getPaymentStatus() throws SQLException {
+        val sQLStatus = "SELECT * FROM payment_entity";
+        val runner = new QueryRunner();
+        try (val conn = getConnection()){
+            val cardStatus = runner.query(conn, sQLStatus, new BeanHandler<>(PaymentEntity.class));
+            return cardStatus.getStatus();
+        }
+    }
+
+
 }
