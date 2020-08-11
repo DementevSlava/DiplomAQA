@@ -15,11 +15,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class TestMySQL {
     DataHelper.CardInfo cardInfo;
 
-    MainPage mainPage = new MainPage();
-
-    //private SelenideElement button = $$("span.button__text").find(exactText("Продолжить"));
-    // private SelenideElement successNotification = $(withText("Операция одобрена Банком."));
-
     @BeforeEach
     void setUp() {
         open("http://localhost:8080");
@@ -31,15 +26,30 @@ public class TestMySQL {
         SQLUtils.cleanDB();
     }
 
-    @Test
-    void BuyTourWithValidDataApprovedCard() {
+    //HAPPY PATH
 
+    //APPROVED card
+
+    @Test
+    void shouldBuyTourWithValidDataUseApprovedCard() {
+        MainPage.openCardPayPage();
         PaymentByCardPage paymentByCardPage = new PaymentByCardPage();
-        mainPage.openCardPayPage();
-        paymentByCardPage.enterCardData(cardInfo);
-        SelenideElement button = $$("span.button__text").find(exactText("Продолжить"));
-        button.click();
+        paymentByCardPage.enterValidDataApprovedCard(cardInfo);
         SelenideElement successNotification = $(withText("Операция одобрена Банком."));
         successNotification.waitUntil(Condition.visible, 30000);
     }
+
+
+
+    //DECLINED card
+    @Test
+    void shouldBuyTourWithValidDataDeclinedCard() {
+        MainPage.openCreditPayPage();
+        PaymentByCardPage paymentByCardPage = new PaymentByCardPage();
+        paymentByCardPage.enterValidDataDeclinedCard(cardInfo);
+        SelenideElement successNotification = $(withText("Операция одобрена Банком."));
+        successNotification.waitUntil(Condition.visible, 30000);
+    }
+
+
 }

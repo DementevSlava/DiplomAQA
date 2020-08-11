@@ -7,14 +7,14 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class MainPage {
 
-    private SelenideElement buyButton = $$("button").find(Condition.exactText("Купить"));
-    private SelenideElement byToCreditButton = $$("button").find(Condition.exactText("Купить в кредит"));
+    private static SelenideElement buyButton = $$("button").find(Condition.exactText("Купить"));
+    private static SelenideElement byToCreditButton = $$("button").find(Condition.exactText("Купить в кредит"));
 
-    public void openCardPayPage(){
+    public static void openCardPayPage(){
         buyButton.click();
     }
 
-    public void openCreditPayPage(){
+    public static void openCreditPayPage(){
         byToCreditButton.click();
     }
 }

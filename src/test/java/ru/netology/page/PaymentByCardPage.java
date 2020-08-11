@@ -9,8 +9,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PaymentByCardPage {
 
-    private SelenideElement heading = $$("h2[class]").find(exactText("Путешествие дня"));
-    private SelenideElement heading2 = $$("h3[class]").find(exactText("Оплата по карте"));
+
+    private SelenideElement heading = $$("h3[class]").find(exactText("Оплата по карте"));
     private SelenideElement buttonToBuy = $$("span.button__text").find(exactText("Купить"));
     private SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
     private SelenideElement monthField = $("[placeholder='08']");
@@ -24,11 +24,21 @@ public class PaymentByCardPage {
         heading.waitUntil(Condition.exist, 5000);
     }
 
-    public void enterCardData(DataHelper.CardInfo cardInfo){
+    public void enterValidDataApprovedCard(DataHelper.CardInfo cardInfo){
         cardNumberField.setValue(DataHelper.getApprovedCard().getCardNumber());
         monthField.setValue(cardInfo.getMonth());
         yearField.setValue(cardInfo.getYear());
         ownerField.setValue(cardInfo.getOwner());
         cvcField.setValue(cardInfo.getCvc());
+        button.click();
+    }
+
+    public void enterValidDataDeclinedCard(DataHelper.CardInfo cardInfo){
+        cardNumberField.setValue(DataHelper.getDeclinedCard().getCardNumber());
+        monthField.setValue(cardInfo.getMonth());
+        yearField.setValue(cardInfo.getYear());
+        ownerField.setValue(cardInfo.getOwner());
+        cvcField.setValue(cardInfo.getCvc());
+        button.click();
     }
 }
