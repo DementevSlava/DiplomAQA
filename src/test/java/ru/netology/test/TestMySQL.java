@@ -26,7 +26,7 @@ public class TestMySQL {
 
     @AfterEach
     void setAfter() {
-         SQLUtils.cleanDB();
+        SQLUtils.cleanDB();
     }
 
     //HAPPY PATH
@@ -38,6 +38,9 @@ public class TestMySQL {
         MainPage.openCardPayPage();
         CardDataEntryPage.enterCardData(cardInfo, DataHelper.getApprovedCard());
         CardDataEntryPage.successNotification();
+        val actual = DataHelper.getApprovedCard().getStatus();
+        val expected = SQLUtils.getPaymentStatus();
+        assertEquals(expected, actual);
     }
 
     //DECLINED card
@@ -62,14 +65,5 @@ public class TestMySQL {
         MainPage.openCreditPayPage();
         CardDataEntryPage.enterCardData(cardInfo, DataHelper.getDeclinedCard());
         CardDataEntryPage.errorNotification();
-    }
-
-    @Test
-    void WritingDataToDBWithPayApprovedCard() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getApprovedCard());
-        val actual = DataHelper.getApprovedCard().getStatus();
-        val expected = SQLUtils.getPaymentStatus();
-        assertEquals(expected, actual);
     }
 }
