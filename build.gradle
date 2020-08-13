@@ -13,9 +13,9 @@ compileTestJava.options.encoding = "UTF-8"
 
 allure {
     autoconfigure = true
-    version = '2.13.0' // Latest Allure Version
+    version = '2.13.2' // Latest Allure Version
     useJUnit5 {
-        version = '2.13.0' // Latest Allure Version
+        version = '2.13.2' // Latest Allure Version
     }
 }
 

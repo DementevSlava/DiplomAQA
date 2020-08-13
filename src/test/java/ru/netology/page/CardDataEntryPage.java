@@ -27,6 +27,7 @@ public class CardDataEntryPage {
  //   }
 
     public static void enterCardData(DataHelper.CardInfo cardInfo, DataHelper.CardNumber cardNumber){
+
         cardNumberField.setValue(cardNumber.getCardNumber());
         monthField.setValue(cardInfo.getMonth());
         yearField.setValue(cardInfo.getYear());

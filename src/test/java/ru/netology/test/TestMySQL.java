@@ -1,6 +1,7 @@
 package ru.netology.test;
 
 
+import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,10 @@ import ru.netology.data.SQLUtils;
 import ru.netology.page.CardDataEntryPage;
 import ru.netology.page.MainPage;
 
+import java.sql.SQLException;
+
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestMySQL {
     DataHelper.CardInfo cardInfo;
@@ -22,7 +26,7 @@ public class TestMySQL {
 
     @AfterEach
     void setAfter() {
-        SQLUtils.cleanDB();
+         SQLUtils.cleanDB();
     }
 
     //HAPPY PATH
@@ -60,5 +64,12 @@ public class TestMySQL {
         CardDataEntryPage.errorNotification();
     }
 
-
+    @Test
+    void WritingDataToDBWithPayApprovedCard() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getApprovedCard());
+        val actual = DataHelper.getApprovedCard().getStatus();
+        val expected = SQLUtils.getPaymentStatus();
+        assertEquals(expected, actual);
+    }
 }

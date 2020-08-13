@@ -32,8 +32,9 @@ public class SQLUtils {
 
         try {
             conn = DriverManager.getConnection(url, user, password);
+            System.out.print("Connection success!");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.print("Connection failed");
 
         }
         return conn;
@@ -54,19 +55,22 @@ public class SQLUtils {
         }
     }
 
-    public static String getPaymentStatus() throws SQLException {
+    public static String getPaymentStatus() {
         val selectStatus = "SELECT * FROM payment_entity";
         val runner = new QueryRunner();
         try (val conn = getNewConnection()) {
             val cardStatus = runner.query(conn, selectStatus, new BeanHandler<>(PaymentEntity.class));
             return cardStatus.getStatus();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
-    public static String getPaymentTransactionId() throws SQLException{
+    public static String getPaymentTransactionId() throws SQLException {
         val selectTransactionId = "SELECT * FROM payment_entity";
         val runner = new QueryRunner();
-        try (val conn = getNewConnection()){
+        try (val conn = getNewConnection()) {
             val transactionId = runner.query(conn, selectTransactionId, new BeanHandler<>(PaymentEntity.class));
             return transactionId.getTransactionId();
         }
@@ -81,19 +85,19 @@ public class SQLUtils {
         }
     }
 
-    public static String getCreditRequestBankId() throws SQLException{
+    public static String getCreditRequestBankId() throws SQLException {
         val selectBankId = "SELECT * FROM credit_request_entity";
         val runner = new QueryRunner();
-        try (val conn = getNewConnection()){
+        try (val conn = getNewConnection()) {
             val bankId = runner.query(conn, selectBankId, new BeanHandler<>(CreditRequestEntity.class));
             return bankId.getBankId();
         }
     }
 
-    public static String getOrderPaymentId() throws SQLException{
+    public static String getOrderPaymentId() throws SQLException {
         val selectPaymentId = "SELECT * FROM order_entity";
         val runner = new QueryRunner();
-        try (val conn = getNewConnection()){
+        try (val conn = getNewConnection()) {
             val paymentId = runner.query(conn, selectPaymentId, new BeanHandler<>(OrderEntity.class));
             return paymentId.getPaymentId();
         }

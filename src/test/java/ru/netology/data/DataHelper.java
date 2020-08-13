@@ -13,14 +13,15 @@ public class DataHelper {
     @Value
     public static class CardNumber {
         private String cardNumber;
+        private String status;
     }
 
     public static CardNumber getApprovedCard() {
-        return new CardNumber("4444 4444 4444 4441");
+        return new CardNumber("4444 4444 4444 4441", "APPROVED");
     }
 
     public static CardNumber getDeclinedCard() {
-        return new CardNumber("4444 4444 4444 4442");
+        return new CardNumber("4444 4444 4444 4442", "DECLINED");
     }
 
     @Value
