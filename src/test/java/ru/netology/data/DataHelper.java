@@ -44,13 +44,11 @@ public class DataHelper {
 
     public static String getRandomCVC() {
         int a = 0; // Начальное значение диапазона - "от"
-        int b = 10; // Конечное значение диапазона - "до"
+        int b = 999; // Конечное значение диапазона - "до"
 
-        int random_number1 = a + (int) (Math.random() * b); // Генерация 1-го числа
-        int random_number2 = a + (int) (Math.random() * b); // Генерация 2-го числа
-        int random_number3 = a + (int) (Math.random() * b); // Генерация 3-го числа
+        int randomNumber = a + (int) (Math.random() * b);
 
-        return Integer.toString(random_number1) + random_number2 + random_number3;
+        return String.format("%03d", randomNumber);
     }
 
 
