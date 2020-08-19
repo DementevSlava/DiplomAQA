@@ -10,10 +10,10 @@ import ru.netology.data.SQLUtils;
 import ru.netology.page.CardDataEntryPage;
 import ru.netology.page.MainPage;
 
-import java.sql.SQLException;
-
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.codeborne.selenide.Selenide.sleep;
+import static org.junit.jupiter.api.Assertions.*;
+import static ru.netology.data.SQLUtils.*;
 
 public class TestMySQL {
     DataHelper.CardInfo cardInfo;
@@ -41,9 +41,31 @@ public class TestMySQL {
         val actual = DataHelper.getApprovedCard().getStatus();
         val expected = SQLUtils.getPaymentStatus();
         assertEquals(expected, actual);
+        val paymentTransactionId = getPaymentTransactionId();
+        assertNotNull(paymentTransactionId);
+        val orderPaymentId = getOrderPaymentId();
+        assertNotNull(orderPaymentId);
+        assertEquals(paymentTransactionId, orderPaymentId);
+
+    }
+
+    @Test
+    void shouldBuyToCreditTourWithValidDataUseApprovedCard() {
+        MainPage.openCreditPayPage();
+        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getApprovedCard());
+        CardDataEntryPage.successNotification();
+        val actual = DataHelper.getApprovedCard().getStatus();
+        val expected = SQLUtils.getCreditRequestStatus();
+        assertEquals(expected, actual);
+        val creditRequestBankId = getCreditRequestBankId();
+        assertNotNull(creditRequestBankId);
+        val orderPaymentId = getOrderPaymentId();
+        assertNotNull(orderPaymentId);
+        assertEquals(creditRequestBankId, orderPaymentId);
     }
 
     //DECLINED card
+
     @Test
     void shouldBuyTourWithValidDataDeclinedCard() {
         MainPage.openCardPayPage();
@@ -51,19 +73,46 @@ public class TestMySQL {
         CardDataEntryPage.errorNotification();
     }
 
-    //APPROVED card
     @Test
-    void shouldBuyToCreditTourWithValidDataUseApprovedCard() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getApprovedCard());
-        CardDataEntryPage.successNotification();
+    void shouldBuyTourWithValidDataDeclinedCardCheckBDOrderPaymentId() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getDeclinedCard());
+        sleep(10000);
+        val actual = getOrderPaymentId();
+        assertNull(actual);
     }
 
-    //DECLINED card
+    @Test
+    void shouldBuyTourWithValidDataDeclinedCardCheckBDPaymentTransactionI() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getDeclinedCard());
+        sleep(10000);
+        val transactionId = getPaymentTransactionId();
+        assertNotNull(transactionId);
+    }
+
     @Test
     void shouldBuyToCreditTourWithValidDataDeclinedCard() {
         MainPage.openCreditPayPage();
         CardDataEntryPage.enterCardData(cardInfo, DataHelper.getDeclinedCard());
         CardDataEntryPage.errorNotification();
+    }
+
+    @Test
+    void shouldBuyToCreditTourWithValidDataDeclinedCardBDOrderPaymentId() {
+        MainPage.openCreditPayPage();
+        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getDeclinedCard());
+        sleep(10000);
+        val actual = getOrderPaymentId();
+        assertNull(actual);
+    }
+
+    @Test
+    void shouldBuyToCreditTourWithValidDataDeclinedCardCheckBDCreditRequestBankId() {
+        MainPage.openCreditPayPage();
+        CardDataEntryPage.enterCardData(cardInfo, DataHelper.getDeclinedCard());
+        sleep(10000);
+        val actual = getCreditRequestBankId();
+        assertNotNull(actual);
     }
 }

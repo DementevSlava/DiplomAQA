@@ -9,5 +9,5 @@ public class OrderEntity {
     String id;
     String created;
     String creditId;
-    String paymentId;
+    String payment_id;
 }

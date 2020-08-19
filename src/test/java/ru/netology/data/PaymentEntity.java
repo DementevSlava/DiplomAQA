@@ -1,6 +1,8 @@
 package ru.netology.data;
 
-import lombok.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -9,5 +11,5 @@ public class PaymentEntity {
     String amount;
     String created;
     String status;
-    String transactionId;
+    String transaction_id;
 }

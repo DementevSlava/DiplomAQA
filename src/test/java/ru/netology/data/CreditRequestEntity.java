@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 public class CreditRequestEntity {
     String id;
-    String bankId;
+    String bank_id;
     String created;
     String status;
 }
