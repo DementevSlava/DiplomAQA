@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -25,7 +26,7 @@ public class CardDataEntryPage {
     private static SelenideElement errorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
 
     private static SelenideElement wrongFormatCard = $(withText("Неверный формат"));
-    private static SelenideElement CardDateIsIncorrect = $(withText("Неверно указан срок действия карты"));
+    private static SelenideElement cardDateIsIncorrect = $(withText("Неверно указан срок действия карты"));
     private static SelenideElement cardExpired = $(withText("Истёк срок действия карты"));
     private static SelenideElement requiredField = $(withText("Поле обязательно для заполнения"));
 
@@ -50,12 +51,44 @@ public class CardDataEntryPage {
 
     public static void enterInvalidCardNumber(DataHelper.CardInfo cardInfo) {
         enterCardData(DataHelper.getInvalidCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwner(), cardInfo.getCvc());
-        wrongFormatCard.waitUntil(Condition.visible, 10000);
+        wrongFormatCard.waitUntil(Condition.visible, 5000);
     }
 
     public static void enterInvalidMonth(DataHelper.CardInfo cardInfo) {
         enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getUnrealMonth(), cardInfo.getYear(), cardInfo.getOwner(), cardInfo.getCvc());
+        cardDateIsIncorrect.waitUntil(Condition.visible, 5000);
     }
+
+    public static void enterInvalidPastYear(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getPastYear(), cardInfo.getOwner(), cardInfo.getCvc());
+        cardExpired.waitUntil(Condition.visible, 5000);
+    }
+
+    public static void enterInvalidFutureYear(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getFutureYear(), cardInfo.getOwner(), cardInfo.getCvc());
+        cardDateIsIncorrect.waitUntil(Condition.visible, 5000);
+    }
+
+    public static void enterInvalidCardHolderWithoutSurName(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), DataHelper.generateEnFirstName(), cardInfo.getCvc());
+        wrongFormatCard.waitUntil(Condition.visible, 5000);
+    }
+
+    public static void enterRusCardHolder(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwnerRus(), cardInfo.getCvc());
+        wrongFormatCard.waitUntil(Condition.visible, 5000);
+    }
+
+    public static void enterNonCardHolder(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), "", cardInfo.getCvc());
+        requiredField.waitUntil(Condition.visible, 5000);
+    }
+
+    public static void enterNonCVC(DataHelper.CardInfo cardInfo){
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwnerRus(),"");
+        wrongFormatCard.waitUntil(Condition.visible, 5000);
+    }
+
 
     public static void successNotification() {
         successNotification.waitUntil(Condition.visible, 20000);

@@ -23,6 +23,7 @@ public class DataHelper {
     public static CardNumber getDeclinedCard() {
         return new CardNumber("4444 4444 4444 4442", "DECLINED");
     }
+
     public static CardNumber getInvalidCard() {
         return new CardNumber("5368 2900 2563 021", "STATUS");
     }
@@ -36,6 +37,7 @@ public class DataHelper {
         private String owner;
         private String cvc;
         private String pastYear;
+        private String futureYear;
         private String pastMonth;
         private String ownerRus;
     }
@@ -44,14 +46,15 @@ public class DataHelper {
         LocalDate localDate = LocalDate.now();
         String month = String.format("%tm", localDate.plusMonths(1));
         String year = String.format("%ty", localDate.plusYears(1));
-        String owner = generateEnName();
+        String owner = generateEnNameWithSurname();
         String cvc = getRandomCVC();
         String pastYear = String.format("%ty", localDate.minusYears(1));
+        String futureYear = String.format("%ty", localDate.minusYears(1));
         String pastMonth = String.format("%tm", localDate.minusMonths(1));
         String unrealMonth = String.format("%tm", localDate.plusMonths(12));
         String ownerRus = generateRusName();
 
-        return new CardInfo(unrealMonth, month, year, owner, cvc, pastYear, pastMonth, ownerRus);
+        return new CardInfo(unrealMonth, month, year, owner, cvc, pastYear, futureYear, pastMonth, ownerRus);
     }
 
     public static String getRandomCVC() {
@@ -63,16 +66,18 @@ public class DataHelper {
         return String.format("%03d", randomNumber);
     }
 
-
     public static String generateRusName() {
         Faker faker = new Faker(new Locale("ru"));
         return faker.name().firstName() + " " + faker.name().lastName();
     }
 
-    public static String generateEnName() {
+    public static String generateEnNameWithSurname() {
         Faker faker = new Faker(new Locale("en"));
         return faker.name().firstName() + " " + faker.name().lastName();
     }
 
-
+    public static String generateEnFirstName(){
+        Faker faker = new Faker(new Locale("en"));
+        return faker.name().firstName();
+    }
 }

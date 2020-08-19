@@ -1,10 +1,10 @@
 package ru.netology.test;
 
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLUtils;
 import ru.netology.page.CardDataEntryPage;
@@ -24,9 +24,19 @@ public class TestMySQL {
         cardInfo = DataHelper.getCardInfo();
     }
 
+    @BeforeAll
+    static void startReport() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
     @AfterEach
     void setAfter() {
         SQLUtils.cleanDB();
+    }
+
+    @AfterAll
+    static void CloseReport() {
+        SelenideLogger.removeListener("allure");
     }
 
     //HAPPY PATH
@@ -117,15 +127,61 @@ public class TestMySQL {
 
     //SAD PATH
 
+    //CARD NUMBER
+
     @Test
-    void shouldBuyTourWithInvalidCardNumber(){
+    void shouldBuyTourWithInvalidCardNumber() {
         MainPage.openCardPayPage();
         CardDataEntryPage.enterInvalidCardNumber(cardInfo);
     }
 
+    //FIELD MONTH
+
     @Test
-    void shouldBuyTourWithInvalidMonth(){
+    void shouldBuyTourWithInvalidMonth() {
         MainPage.openCardPayPage();
         CardDataEntryPage.enterInvalidMonth(cardInfo);
+    }
+
+    //FIELD YEAR
+
+    @Test
+    void shouldBuyTourWithInvalidPastYear() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterInvalidPastYear(cardInfo);
+    }
+
+    @Test
+    void shouldBuyTourWithInvalidFutureYear() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterInvalidFutureYear(cardInfo);
+    }
+
+    //FIELD OWNER
+
+    @Test
+    void shouldBuyTourWithInvalidOwnerWithoutSurname() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterInvalidCardHolderWithoutSurName(cardInfo);
+    }
+
+    @Test
+    void shouldBuyTourWithInvalidRusOwner() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterRusCardHolder(cardInfo);
+    }
+
+    @Test
+    void shouldBuyTourWithInvalidNonOwner() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterNonCardHolder(cardInfo);
+    }
+
+    //FIELD CVC
+
+    @Test
+    void shouldBuyTourWithInvalidNonCVC() {
+        MainPage.openCardPayPage();
+        CardDataEntryPage.enterNonCVC(cardInfo);
     }
 }
