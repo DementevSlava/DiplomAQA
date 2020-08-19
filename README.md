@@ -1,7 +1,7 @@
 # Дипломный проект профессии «Тестировщик»
 
 ### План автоматизации
-[Plan](https://github.com/DementevSlava/DiplomAQA/blob/master/Docs/Plan.md)
+[Plan](https://github.com/DementevSlava/DiplomAQA/blob/master/Docs/Plan.md).
 
 ### Запуск приложения
 Для запуска приложения необходимо:

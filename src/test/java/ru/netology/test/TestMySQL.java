@@ -46,7 +46,6 @@ public class TestMySQL {
         val orderPaymentId = getOrderPaymentId();
         assertNotNull(orderPaymentId);
         assertEquals(paymentTransactionId, orderPaymentId);
-
     }
 
     @Test

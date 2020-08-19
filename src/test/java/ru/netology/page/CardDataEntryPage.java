@@ -1,11 +1,13 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class CardDataEntryPage {
 
@@ -22,11 +24,7 @@ public class CardDataEntryPage {
     private static SelenideElement successNotification = $(withText("Операция одобрена Банком."));
     private static SelenideElement errorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
 
- //   public CardDataEntryPage() {
- //       heading.waitUntil(Condition.exist, 5000);
- //   }
-
-    public static void enterCardData(DataHelper.CardInfo cardInfo, DataHelper.CardNumber cardNumber){
+    public static void enterCardData(DataHelper.CardInfo cardInfo, DataHelper.CardNumber cardNumber) {
 
         cardNumberField.setValue(cardNumber.getCardNumber());
         monthField.setValue(cardInfo.getMonth());
@@ -36,11 +34,11 @@ public class CardDataEntryPage {
         button.click();
     }
 
-    public static void successNotification(){
+    public static void successNotification() {
         successNotification.waitUntil(Condition.visible, 20000);
     }
 
-    public static void errorNotification(){
+    public static void errorNotification() {
         errorNotification.waitUntil(Condition.visible, 20000);
     }
 }
