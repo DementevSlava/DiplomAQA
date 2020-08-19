@@ -23,14 +23,21 @@ public class DataHelper {
     public static CardNumber getDeclinedCard() {
         return new CardNumber("4444 4444 4444 4442", "DECLINED");
     }
+    public static CardNumber getInvalidCard() {
+        return new CardNumber("5368 2900 2563 021", "STATUS");
+    }
 
     @Value
     public static class CardInfo {
+        private String unrealMonth;
+        final String unrealCVC = "000";
         private String month;
         private String year;
         private String owner;
         private String cvc;
-
+        private String pastYear;
+        private String pastMonth;
+        private String ownerRus;
     }
 
     public static CardInfo getCardInfo() {
@@ -39,8 +46,12 @@ public class DataHelper {
         String year = String.format("%ty", localDate.plusYears(1));
         String owner = generateEnName();
         String cvc = getRandomCVC();
+        String pastYear = String.format("%ty", localDate.minusYears(1));
+        String pastMonth = String.format("%tm", localDate.minusMonths(1));
+        String unrealMonth = String.format("%tm", localDate.plusMonths(12));
+        String ownerRus = generateRusName();
 
-        return new CardInfo(month, year, owner, cvc);
+        return new CardInfo(unrealMonth, month, year, owner, cvc, pastYear, pastMonth, ownerRus);
     }
 
     public static String getRandomCVC() {

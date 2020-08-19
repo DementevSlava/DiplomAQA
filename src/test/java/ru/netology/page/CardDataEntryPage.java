@@ -24,7 +24,12 @@ public class CardDataEntryPage {
     private static SelenideElement successNotification = $(withText("Операция одобрена Банком."));
     private static SelenideElement errorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
 
-    public static void enterCardData(DataHelper.CardInfo cardInfo, DataHelper.CardNumber cardNumber) {
+    private static SelenideElement wrongFormatCard = $(withText("Неверный формат"));
+    private static SelenideElement CardDateIsIncorrect = $(withText("Неверно указан срок действия карты"));
+    private static SelenideElement cardExpired = $(withText("Истёк срок действия карты"));
+    private static SelenideElement requiredField = $(withText("Поле обязательно для заполнения"));
+
+    public static void enterValidCardData(DataHelper.CardInfo cardInfo, DataHelper.CardNumber cardNumber) {
 
         cardNumberField.setValue(cardNumber.getCardNumber());
         monthField.setValue(cardInfo.getMonth());
@@ -32,6 +37,24 @@ public class CardDataEntryPage {
         ownerField.setValue(cardInfo.getOwner());
         cvcField.setValue(cardInfo.getCvc());
         button.click();
+    }
+
+    public static void enterCardData(String cardNumber, String month, String year, String owner, String cvc) {
+        cardNumberField.setValue(cardNumber);
+        monthField.setValue(month);
+        yearField.setValue(year);
+        ownerField.setValue(owner);
+        cvcField.setValue(cvc);
+        button.click();
+    }
+
+    public static void enterInvalidCardNumber(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getInvalidCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwner(), cardInfo.getCvc());
+        wrongFormatCard.waitUntil(Condition.visible, 10000);
+    }
+
+    public static void enterInvalidMonth(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getUnrealMonth(), cardInfo.getYear(), cardInfo.getOwner(), cardInfo.getCvc());
     }
 
     public static void successNotification() {
