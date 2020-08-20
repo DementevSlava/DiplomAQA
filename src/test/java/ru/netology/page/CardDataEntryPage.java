@@ -85,7 +85,7 @@ public class CardDataEntryPage {
     }
 
     public static void enterNonCVC(DataHelper.CardInfo cardInfo){
-        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwnerRus(),"");
+        enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwner(),"");
         wrongFormatCard.waitUntil(Condition.visible, 5000);
     }
 

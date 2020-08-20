@@ -49,9 +49,9 @@ public class DataHelper {
         String owner = generateEnNameWithSurname();
         String cvc = getRandomCVC();
         String pastYear = String.format("%ty", localDate.minusYears(1));
-        String futureYear = String.format("%ty", localDate.minusYears(1));
+        String futureYear = String.format("%ty", localDate.plusYears(10));
         String pastMonth = String.format("%tm", localDate.minusMonths(1));
-        String unrealMonth = String.format("%tm", localDate.plusMonths(12));
+        String unrealMonth = "20";
         String ownerRus = generateRusName();
 
         return new CardInfo(unrealMonth, month, year, owner, cvc, pastYear, futureYear, pastMonth, ownerRus);
