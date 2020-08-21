@@ -18,7 +18,7 @@
    - для конфигурации БД MySql:  
 ```gradlew clean test -DdbUrl=jdbc:mysql://192.168.99.100:3306/app allureReport```
    - для конфигурации БД Postgres:  
-```gradlew clean test -DdbUrl=jdbc:postgres://192.168.99.100:5432/app allureReport```
+```gradlew clean test -DdbUrl=jdbc:postgresql://192.168.99.100:5432/app allureReport```
 5. Посмотреть отчет можно командой
 ```gradlew allureServe```  
 откроется страница в браузере  
