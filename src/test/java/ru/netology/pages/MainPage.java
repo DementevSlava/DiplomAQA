@@ -10,11 +10,11 @@ public class MainPage {
     private static SelenideElement buyButton = $$("button").find(Condition.exactText("Купить"));
     private static SelenideElement byToCreditButton = $$("button").find(Condition.exactText("Купить в кредит"));
 
-    public static void openCardPayPage(){
+    public void openCardPayPage(){
         buyButton.click();
     }
 
-    public static void openCreditPayPage(){
+    public void openCreditPayPage(){
         byToCreditButton.click();
     }
 }

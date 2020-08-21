@@ -17,6 +17,8 @@ import static ru.netology.data.SQLUtils.getOrderPaymentId;
 
 public class TestMySQLBuyToCredit {
     DataHelper.CardInfo cardInfo;
+    MainPage mainPage = new MainPage();
+    CardDataEntryPage cardDataEntryPage = new CardDataEntryPage();
 
         @BeforeEach
         void setUp() {
@@ -45,9 +47,9 @@ public class TestMySQLBuyToCredit {
 
     @Test
     void shouldBuyToCreditTourWithValidDataUseApprovedCard() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterApprovedCardData(cardInfo);
-        CardDataEntryPage.successNotification();
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterApprovedCardData(cardInfo);
+        cardDataEntryPage.successNotification();
         val actual = DataHelper.getApprovedCard().getStatus();
         val expected = SQLUtils.getCreditRequestStatus();
         assertEquals(expected, actual);
@@ -62,15 +64,15 @@ public class TestMySQLBuyToCredit {
 
     @Test
     void shouldBuyToCreditTourWithValidDataDeclinedCard() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterDeclinedCardData(cardInfo);
-        CardDataEntryPage.errorNotification();
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterDeclinedCardData(cardInfo);
+        cardDataEntryPage.errorNotification();
     }
 
     @Test
     void shouldBuyToCreditTourWithValidDataDeclinedCardBDOrderPaymentId() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterDeclinedCardData(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterDeclinedCardData(cardInfo);
         sleep(10000);
         val actual = getOrderPaymentId();
         assertNull(actual);
@@ -78,8 +80,8 @@ public class TestMySQLBuyToCredit {
 
     @Test
     void shouldBuyToCreditTourWithValidDataDeclinedCardCheckBDCreditRequestBankId() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterDeclinedCardData(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterDeclinedCardData(cardInfo);
         sleep(10000);
         val actual = getCreditRequestBankId();
         assertNotNull(actual);
@@ -91,57 +93,63 @@ public class TestMySQLBuyToCredit {
 
     @Test
     void shouldBuyToCreditTourWithInvalidCardNumber() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterInvalidCardNumber(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterInvalidCardNumber(cardInfo);
     }
 
     //FIELD MONTH
 
     @Test
     void shouldBuyToCreditTourWithInvalidMonth() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterInvalidMonth(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterInvalidMonth(cardInfo);
     }
 
     //FIELD YEAR
 
     @Test
     void shouldBuyTourWithInvalidPastYear() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterInvalidPastYear(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterInvalidPastYear(cardInfo);
     }
 
     @Test
     void shouldBuyToCreditTourWithInvalidFutureYear() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterInvalidFutureYear(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterInvalidFutureYear(cardInfo);
     }
 
     //FIELD OWNER
 
     @Test
     void shouldBuyToCreditTourWithInvalidOwnerWithoutSurname() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterInvalidCardHolderWithoutSurName(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterInvalidCardHolderWithoutSurName(cardInfo);
     }
 
     @Test
     void shouldBuyToCreditTourWithInvalidRusOwner() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterRusCardHolder(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterRusCardHolder(cardInfo);
     }
 
     @Test
     void shouldBuyToCreditTourWithInvalidNonOwner() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterNonCardHolder(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterNonCardHolder(cardInfo);
+    }
+
+    @Test
+    void shouldBuyTourWithInvalidSymbolOwner() {
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterSymbolCardHolder(cardInfo);
     }
 
     //FIELD CVC
 
     @Test
     void shouldBuyToCreditTourWithInvalidNonCVC() {
-        MainPage.openCreditPayPage();
-        CardDataEntryPage.enterNonCVC(cardInfo);
+        mainPage.openCreditPayPage();
+        cardDataEntryPage.enterNonCVC(cardInfo);
     }
 }

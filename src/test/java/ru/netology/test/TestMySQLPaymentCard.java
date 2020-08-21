@@ -17,6 +17,8 @@ import static ru.netology.data.SQLUtils.*;
 
 public class TestMySQLPaymentCard {
     DataHelper.CardInfo cardInfo;
+    MainPage mainPage = new MainPage();
+    CardDataEntryPage cardDataEntryPage = new CardDataEntryPage();
 
     @BeforeEach
     void setUp() {
@@ -45,9 +47,9 @@ public class TestMySQLPaymentCard {
 
     @Test
     void shouldBuyTourWithValidDataUseApprovedCard() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterApprovedCardData(cardInfo);
-        CardDataEntryPage.successNotification();
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterApprovedCardData(cardInfo);
+        cardDataEntryPage.successNotification();
         val actual = DataHelper.getApprovedCard().getStatus();
         val expected = SQLUtils.getPaymentStatus();
         assertEquals(expected, actual);
@@ -62,15 +64,15 @@ public class TestMySQLPaymentCard {
 
     @Test
     void shouldBuyTourWithValidDataDeclinedCard() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterDeclinedCardData(cardInfo);
-        CardDataEntryPage.errorNotification();
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterDeclinedCardData(cardInfo);
+        cardDataEntryPage.errorNotification();
     }
 
     @Test
     void shouldBuyTourWithValidDataDeclinedCardCheckBDOrderPaymentId() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterDeclinedCardData(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterDeclinedCardData(cardInfo);
         sleep(10000);
         val actual = getOrderPaymentId();
         assertNull(actual);
@@ -78,8 +80,8 @@ public class TestMySQLPaymentCard {
 
     @Test
     void shouldBuyTourWithValidDataDeclinedCardCheckBDPaymentTransactionI() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterDeclinedCardData(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterDeclinedCardData(cardInfo);
         sleep(10000);
         val transactionId = getPaymentTransactionId();
         assertNotNull(transactionId);
@@ -91,57 +93,63 @@ public class TestMySQLPaymentCard {
 
     @Test
     void shouldBuyTourWithInvalidCardNumber() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterInvalidCardNumber(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterInvalidCardNumber(cardInfo);
     }
 
     //FIELD MONTH
 
     @Test
     void shouldBuyTourWithInvalidMonth() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterInvalidMonth(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterInvalidMonth(cardInfo);
     }
 
     //FIELD YEAR
 
     @Test
     void shouldBuyTourWithInvalidPastYear() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterInvalidPastYear(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterInvalidPastYear(cardInfo);
     }
 
     @Test
     void shouldBuyTourWithInvalidFutureYear() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterInvalidFutureYear(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterInvalidFutureYear(cardInfo);
     }
 
     //FIELD OWNER
 
     @Test
     void shouldBuyTourWithInvalidOwnerWithoutSurname() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterInvalidCardHolderWithoutSurName(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterInvalidCardHolderWithoutSurName(cardInfo);
     }
 
     @Test
     void shouldBuyTourWithInvalidRusOwner() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterRusCardHolder(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterRusCardHolder(cardInfo);
     }
 
     @Test
     void shouldBuyTourWithInvalidNonOwner() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterNonCardHolder(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterNonCardHolder(cardInfo);
+    }
+
+    @Test
+    void shouldBuyTourWithInvalidSymbolOwner() {
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterSymbolCardHolder(cardInfo);
     }
 
     //FIELD CVC
 
     @Test
     void shouldBuyTourWithInvalidNonCVC() {
-        MainPage.openCardPayPage();
-        CardDataEntryPage.enterNonCVC(cardInfo);
+        mainPage.openCardPayPage();
+        cardDataEntryPage.enterNonCVC(cardInfo);
     }
 }

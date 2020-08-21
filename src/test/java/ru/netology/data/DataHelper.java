@@ -31,7 +31,6 @@ public class DataHelper {
     @Value
     public static class CardInfo {
         private String unrealMonth;
-        final String unrealCVC = "000";
         private String month;
         private String year;
         private String owner;
