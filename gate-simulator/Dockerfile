@@ -1,6 +1,6 @@
 FROM node:8.16.2-alpine
 WORKDIR /opt/app
-COPY ./gate-simulator /opt/app
+COPY . .
 RUN npm install
 COPY . .
 CMD ["npm", "start"]
