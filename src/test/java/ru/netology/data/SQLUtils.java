@@ -3,6 +3,9 @@ package ru.netology.data;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import ru.netology.entities.CreditRequestEntity;
+import ru.netology.entities.OrderEntity;
+import ru.netology.entities.PaymentEntity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

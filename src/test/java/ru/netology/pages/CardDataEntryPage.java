@@ -1,11 +1,10 @@
-package ru.netology.page;
+package ru.netology.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -22,8 +21,8 @@ public class CardDataEntryPage {
     private static SelenideElement ownerField = $("div:nth-child(3) > span > span:nth-child(1) > span > span > span.input__box > input");
     private static SelenideElement cvcField = $("[placeholder='999']");
     private static SelenideElement button = $$("span.button__text").find(exactText("Продолжить"));
-    private static SelenideElement successNotification = $(withText("Операция одобрена Банком."));
-    private static SelenideElement errorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
+    private static SelenideElement waitSuccessNotification = $(withText("Операция одобрена Банком."));
+    private static SelenideElement waitErrorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
 
     private static SelenideElement wrongFormatCard = $(withText("Неверный формат"));
     private static SelenideElement cardDateIsIncorrect = $(withText("Неверно указан срок действия карты"));
@@ -85,10 +84,10 @@ public class CardDataEntryPage {
 
 
     public static void successNotification() {
-        successNotification.waitUntil(Condition.visible, 20000);
+        waitSuccessNotification.waitUntil(Condition.visible, 20000);
     }
 
     public static void errorNotification() {
-        errorNotification.waitUntil(Condition.visible, 20000);
+        waitErrorNotification.waitUntil(Condition.visible, 20000);
     }
 }
