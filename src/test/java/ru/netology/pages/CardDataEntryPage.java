@@ -78,7 +78,7 @@ public class CardDataEntryPage {
 
     public void enterSymbolCardHolder(DataHelper.CardInfo cardInfo) {
         enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), "!@#$%^&*()_+", cardInfo.getCvc());
-        requiredField.waitUntil(Condition.visible, 5000);
+        wrongFormatCard.waitUntil(Condition.visible, 5000);
     }
 
     public void enterNonCVC(DataHelper.CardInfo cardInfo){

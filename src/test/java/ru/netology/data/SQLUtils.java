@@ -13,7 +13,8 @@ import java.sql.SQLException;
 
 public class SQLUtils {
 
-    private static String url = "jdbc:mysql://192.168.99.100:3306/app";
+    private static String url = System.getProperty("dbUrl");
+
     private static String user = "app";
     private static String password = "pass";
     private static Connection conn;
@@ -21,10 +22,8 @@ public class SQLUtils {
     public static Connection getNewConnection() {
         try {
             conn = DriverManager.getConnection(url, user, password);
-            System.out.print("Connection success!");
         } catch (SQLException e) {
             System.out.print("Connection failed");
-
         }
         return conn;
     }

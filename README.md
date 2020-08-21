@@ -7,13 +7,27 @@
 Для запуска приложения необходимо:
 
 1. Запустить Docker Toolbox
-2. Запустить контейтры mysql, postgres и Node.js командой  
+2. Запустить контейнеры mysql, postgres и Node.js командой  
 ```docker-compose up```  
-3. Открыть второй терминал и запустить SUT командой  
-```java -jar artifacts\aqa-shop.jar```  
+3. Открыть второй терминал и запустить SUT командой
+   - для подключения БД MySql:  
+```java -Dspring.datasource.url=jdbc:mysql://192.168.99.100:3306/app -jar artifacts\aqa-shop.jar```
+   - для подключения Postgres:  
+```java -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/app -jar artifacts\aqa-shop.jar```
 4. Запустить автотесты командой  
-```gradlew test```
-
+   - для конфигурации БД MySql:  
+```gradlew clean test -DdbUrl=jdbc:mysql://192.168.99.100:3306/app allureReport```
+   - для конфигурации БД Postgres:  
+```gradlew clean test -DdbUrl=jdbc:postgres://192.168.99.100:5432/app allureReport```
+5. Посмотреть отчет можно командой
+```gradlew allureServe```  
+откроется страница в браузере  
+По окончании просмотра
+6. Закрыть ```allureServe``` командой ```Ctrl+C``` Завершить? ```Y```
+7. Остановить SUT командой ```Ctrl+C```
+8. Остановить контейнеры mysql, postgres и Node.js командой  
+```Ctrl+C``` затем ```docker-compose down```
+  
 ### Описание приложения
 
 Приложение предлагает купить тур по определённой цене с помощью двух способов:

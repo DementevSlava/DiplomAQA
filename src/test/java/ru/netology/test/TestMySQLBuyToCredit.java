@@ -20,26 +20,26 @@ public class TestMySQLBuyToCredit {
     MainPage mainPage = new MainPage();
     CardDataEntryPage cardDataEntryPage = new CardDataEntryPage();
 
-        @BeforeEach
-        void setUp() {
-            open("http://localhost:8080");
-            cardInfo = DataHelper.getCardInfo();
-        }
+    @BeforeEach
+    void setUp() {
+        open("http://localhost:8080");
+        cardInfo = DataHelper.getCardInfo();
+    }
 
-        @BeforeAll
-        static void startReport() {
-            SelenideLogger.addListener("allure", new AllureSelenide());
-        }
+    @BeforeAll
+    static void startReport() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
-        @AfterEach
-        void setAfter() {
-            SQLUtils.cleanDB();
-        }
+    @AfterEach
+    void setAfter() {
+        SQLUtils.cleanDB();
+    }
 
-        @AfterAll
-        static void CloseReport() {
-            SelenideLogger.removeListener("allure");
-        }
+    @AfterAll
+    static void CloseReport() {
+        SelenideLogger.removeListener("allure");
+    }
 
     //HAPPY PATH
 
@@ -108,7 +108,7 @@ public class TestMySQLBuyToCredit {
     //FIELD YEAR
 
     @Test
-    void shouldBuyTourWithInvalidPastYear() {
+    void shouldBuyToCreditTourWithInvalidPastYear() {
         mainPage.openCreditPayPage();
         cardDataEntryPage.enterInvalidPastYear(cardInfo);
     }
@@ -140,7 +140,7 @@ public class TestMySQLBuyToCredit {
     }
 
     @Test
-    void shouldBuyTourWithInvalidSymbolOwner() {
+    void shouldBuyToCreditTourWithInvalidSymbolOwner() {
         mainPage.openCreditPayPage();
         cardDataEntryPage.enterSymbolCardHolder(cardInfo);
     }
