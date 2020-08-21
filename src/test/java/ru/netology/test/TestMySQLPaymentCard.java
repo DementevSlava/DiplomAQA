@@ -46,7 +46,7 @@ public class TestMySQLPaymentCard {
     @Test
     void shouldBuyTourWithValidDataUseApprovedCard() {
         MainPage.openCardPayPage();
-        CardDataEntryPage.enterValidCardData(cardInfo);
+        CardDataEntryPage.enterApprovedCardData(cardInfo);
         CardDataEntryPage.successNotification();
         val actual = DataHelper.getApprovedCard().getStatus();
         val expected = SQLUtils.getPaymentStatus();
@@ -63,14 +63,14 @@ public class TestMySQLPaymentCard {
     @Test
     void shouldBuyTourWithValidDataDeclinedCard() {
         MainPage.openCardPayPage();
-        CardDataEntryPage.enterValidCardData(cardInfo);
+        CardDataEntryPage.enterDeclinedCardData(cardInfo);
         CardDataEntryPage.errorNotification();
     }
 
     @Test
     void shouldBuyTourWithValidDataDeclinedCardCheckBDOrderPaymentId() {
         MainPage.openCardPayPage();
-        CardDataEntryPage.enterValidCardData(cardInfo);
+        CardDataEntryPage.enterDeclinedCardData(cardInfo);
         sleep(10000);
         val actual = getOrderPaymentId();
         assertNull(actual);
@@ -79,7 +79,7 @@ public class TestMySQLPaymentCard {
     @Test
     void shouldBuyTourWithValidDataDeclinedCardCheckBDPaymentTransactionI() {
         MainPage.openCardPayPage();
-        CardDataEntryPage.enterValidCardData(cardInfo);
+        CardDataEntryPage.enterDeclinedCardData(cardInfo);
         sleep(10000);
         val transactionId = getPaymentTransactionId();
         assertNotNull(transactionId);

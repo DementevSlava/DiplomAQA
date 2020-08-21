@@ -38,8 +38,12 @@ public class CardDataEntryPage {
         button.click();
     }
 
-    public static void enterValidCardData(DataHelper.CardInfo cardInfo) {
+    public static void enterApprovedCardData(DataHelper.CardInfo cardInfo) {
         enterCardData(DataHelper.getApprovedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwner(), cardInfo.getCvc());
+    }
+
+    public static void enterDeclinedCardData(DataHelper.CardInfo cardInfo) {
+        enterCardData(DataHelper.getDeclinedCard().getCardNumber(), cardInfo.getMonth(), cardInfo.getYear(), cardInfo.getOwner(), cardInfo.getCvc());
     }
 
     public static void enterInvalidCardNumber(DataHelper.CardInfo cardInfo) {

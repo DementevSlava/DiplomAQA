@@ -18,20 +18,7 @@ public class SQLUtils {
     private static String password = "pass";
     private static Connection conn;
 
-
-    public static Connection getOldConnection() {
-        if (conn == null) {
-            try {
-                conn = DriverManager.getConnection(url, user, password);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return conn;
-    }
-
     public static Connection getNewConnection() {
-
         try {
             conn = DriverManager.getConnection(url, user, password);
             System.out.print("Connection success!");
