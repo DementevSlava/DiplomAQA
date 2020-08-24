@@ -22,7 +22,7 @@ public class TestMySQLPaymentCard {
 
     @BeforeEach
     void setUp() {
-        open("http://localhost:8080");
+        open(System.getProperty("sut.url"));
         cardInfo = DataHelper.getCardInfo();
     }
 
@@ -49,7 +49,7 @@ public class TestMySQLPaymentCard {
     void shouldBuyTourWithValidDataUseApprovedCard() {
         mainPage.openCardPayPage();
         cardDataEntryPage.enterApprovedCardData(cardInfo);
-        cardDataEntryPage.successNotification();
+        cardDataEntryPage.waitSuccessNotification();
         val actual = DataHelper.getApprovedCard().getStatus();
         val expected = SQLUtils.getPaymentStatus();
         assertEquals(expected, actual);
@@ -66,7 +66,7 @@ public class TestMySQLPaymentCard {
     void shouldBuyTourWithValidDataDeclinedCard() {
         mainPage.openCardPayPage();
         cardDataEntryPage.enterDeclinedCardData(cardInfo);
-        cardDataEntryPage.errorNotification();
+        cardDataEntryPage.waitErrorNotification();
     }
 
     @Test

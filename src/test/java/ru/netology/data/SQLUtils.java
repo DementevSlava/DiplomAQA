@@ -13,9 +13,9 @@ import java.sql.SQLException;
 
 public class SQLUtils {
 
-    private static String url = System.getProperty("dbUrl");
-    private static String user = "app";
-    private static String password = "pass";
+    private static String url = System.getProperty("db.url");
+    private static String user = System.getProperty("db.user");
+    private static String password = System.getProperty("db.pass");
     private static Connection conn;
 
     public static Connection getNewConnection() {

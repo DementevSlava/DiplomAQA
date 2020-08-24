@@ -49,7 +49,7 @@ public class TestMySQLBuyToCredit {
     void shouldBuyToCreditTourWithValidDataUseApprovedCard() {
         mainPage.openCreditPayPage();
         cardDataEntryPage.enterApprovedCardData(cardInfo);
-        cardDataEntryPage.successNotification();
+        cardDataEntryPage.waitSuccessNotification();
         val actual = DataHelper.getApprovedCard().getStatus();
         val expected = SQLUtils.getCreditRequestStatus();
         assertEquals(expected, actual);
@@ -66,7 +66,7 @@ public class TestMySQLBuyToCredit {
     void shouldBuyToCreditTourWithValidDataDeclinedCard() {
         mainPage.openCreditPayPage();
         cardDataEntryPage.enterDeclinedCardData(cardInfo);
-        cardDataEntryPage.errorNotification();
+        cardDataEntryPage.waitErrorNotification();
     }
 
     @Test

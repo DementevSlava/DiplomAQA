@@ -16,8 +16,8 @@ public class CardDataEntryPage {
     private SelenideElement ownerField = $("div:nth-child(3) > span > span:nth-child(1) > span > span > span.input__box > input");
     private SelenideElement cvcField = $("[placeholder='999']");
     private SelenideElement button = $$("span.button__text").find(exactText("Продолжить"));
-    private SelenideElement waitSuccessNotification = $(withText("Операция одобрена Банком."));
-    private SelenideElement waitErrorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
+    private SelenideElement successNotification = $(withText("Операция одобрена Банком."));
+    private SelenideElement errorNotification = $(withText("Ошибка! Банк отказал в проведении операции."));
 
     private SelenideElement wrongFormatCard = $(withText("Неверный формат"));
     private SelenideElement cardDateIsIncorrect = $(withText("Неверно указан срок действия карты"));
@@ -86,11 +86,11 @@ public class CardDataEntryPage {
         wrongFormatCard.waitUntil(Condition.visible, 5000);
     }
 
-    public void successNotification() {
-        waitSuccessNotification.waitUntil(Condition.visible, 20000);
+    public void waitSuccessNotification() {
+        successNotification.waitUntil(Condition.visible, 20000);
     }
 
-    public void errorNotification() {
-        waitErrorNotification.waitUntil(Condition.visible, 20000);
+    public void waitErrorNotification() {
+        errorNotification.waitUntil(Condition.visible, 20000);
     }
 }
