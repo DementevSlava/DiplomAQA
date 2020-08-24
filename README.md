@@ -3,6 +3,12 @@
 ### План автоматизации
 [Plan](https://github.com/DementevSlava/DiplomAQA/blob/master/Docs/Plan.md).
 
+### Отчётные документы по итогам тестирования
+[Report](https://github.com/DementevSlava/DiplomAQA/blob/master/Docs/Report.md).
+
+### Отчётные документы по итогам автоматизации
+[Summary](https://github.com/DementevSlava/DiplomAQA/blob/master/Docs/Summary.md).
+
 ### Запуск приложения
 Для запуска приложения необходимо:
 
